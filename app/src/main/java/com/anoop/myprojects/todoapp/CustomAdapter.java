@@ -26,7 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.id= itemView.findViewById(R.id.id);
+            this.id= itemView.findViewById(R.id.todoId);
             this.title= itemView.findViewById(R.id.title);
             this.date= itemView.findViewById(R.id.date);
             this.time= itemView.findViewById(R.id.time);
@@ -49,8 +49,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         parent,
                         false);
 
-        MyViewHolder viewHolder = new MyViewHolder(view);
-        return viewHolder;
+        MyViewHolder myViewHolder = new MyViewHolder(view);
+        return myViewHolder;
     }
 
     @Override
@@ -72,6 +72,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         date.setText(dataSet.get(position).getDate());
         time.setText(dataSet.get(position).getTime());
         id.setText(String.valueOf(dataSet.get(position).getId()));
+
+        System.out.println(dataSet.get(position).getId());
 
         delete.setImageResource(R.drawable.ic_delete_forever_black_24dp);
         delete.setOnClickListener(MainActivity.deleteOnClickListner);

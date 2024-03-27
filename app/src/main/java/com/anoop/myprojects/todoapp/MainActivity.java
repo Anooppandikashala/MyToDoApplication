@@ -276,6 +276,10 @@ public class MainActivity extends AppCompatActivity {
         toDoItems = new ArrayList<>();
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         toDoItems = databaseHelper.getAllToDoItems();
+        if(toDoItems.isEmpty())
+        {
+
+        }
         adapter = new CustomAdapter(toDoItems);
         recyclerView.setAdapter(adapter);
     }
@@ -298,10 +302,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             String selectedId="";
-            ViewGroup parentView =(ViewGroup) view.getParent();
-            TextView id = parentView.findViewById(R.id.id);
+            ViewGroup parentView =(ViewGroup) view.getParent().getParent();
+            TextView id =  parentView.findViewById(R.id.todoId);
             selectedId = id.getText().toString();
-            DatabaseHelper databaseHelper = new DatabaseHelper(context);
+            DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
             toDoItems = databaseHelper.getAllToDoItems();
             adapter = new CustomAdapter(toDoItems);

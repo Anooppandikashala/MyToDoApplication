@@ -1,5 +1,6 @@
 package com.anoop.myprojects.todoapp.Database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -59,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    @SuppressLint("Range")
     public ArrayList<ToDoItem> getAllToDoItems()
     {
         SQLiteDatabase db = this.getReadableDatabase();

@@ -15,4 +15,8 @@
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
         android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:text="No tasks found"
+        android:layout_height="match_parent"/>
 </LinearLayout>
