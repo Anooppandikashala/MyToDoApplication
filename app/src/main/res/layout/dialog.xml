@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="15dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,61 +33,79 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:id="@+id/delete"
-                    android:padding="5dp"
                     android:background="#00FFFFFF"
-                    android:src="@drawable/ic_delete_forever_black_24dp"
+                    android:src="@drawable/baseline_cancel_24"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:text="Title :"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textStyle="normal"
+                    android:text="Title :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    android:layout_height="wrap_content"/>
 
-            <EditText
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Task name here"
+                    android:id="@+id/title"
+                    android:textColor="#000000"
+                    android:textSize="22sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:hint="Enter title"
-                android:id="@+id/title"
-                android:textColor="#000000"
-                android:textSize="22sp"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textStyle="normal"
+                    android:text="Date :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/date"
+                    android:hint="Add task date"
+                    android:textSize="22sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:text="Date :"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:id="@+id/date"
-                android:hint="Enter date"
-                android:textSize="22sp"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textStyle="normal"
+                    android:text="Time :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:text="Time :"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:id="@+id/time"
-                android:hint="Enter time"
-                android:textSize="22sp"
-                android:layout_height="wrap_content"/>
-
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/time"
+                    android:hint="Add completion time"
+                    android:textSize="22sp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_add_todo"
@@ -97,7 +115,7 @@
                 android:layout_margin="@dimen/fab_margin"
                 app:tint="@android:color/white"
                 app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/ic_send_black_24dp" />
+                app:srcCompat="@drawable/baseline_check_24" />
         </LinearLayout>
     </LinearLayout>
 

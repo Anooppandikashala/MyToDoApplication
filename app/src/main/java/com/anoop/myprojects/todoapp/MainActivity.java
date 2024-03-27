@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     public static  View.OnClickListener deleteOnClickListner;
+    public static  View.OnClickListener completeOnClickListner;
     private  static RecyclerView recyclerView;
     private  static ArrayList<ToDoItem> toDoItems;
     private static RecyclerView.Adapter adapter;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         deleteOnClickListner = new MainActivity.DeleteOnClickListener(MainActivity.this);
-
+        completeOnClickListner = new MainActivity.CompleteOnClickListener(MainActivity.this);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -309,6 +310,30 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context,"Deleted Success", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private  static class CompleteOnClickListener implements View.OnClickListener
+    {
+        private Context context;
+        public CompleteOnClickListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View view) {
+//            String selectedId="";
+//            ViewGroup parentView =(ViewGroup) view.getParent();
+//            TextView id = parentView.findViewById(R.id.id);
+//            selectedId = id.getText().toString();
+//            DatabaseHelper databaseHelper = new DatabaseHelper(context);
+//            databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
+//            toDoItems = databaseHelper.getAllToDoItems();
+//            adapter = new CustomAdapter(toDoItems);
+//
+//            recyclerView.setAdapter(adapter);
+            Toast.makeText(context,"Completed Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
