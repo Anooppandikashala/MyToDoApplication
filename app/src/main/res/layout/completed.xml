@@ -19,7 +19,8 @@
                 android:id="@+id/delete"
                 android:background="#00FFFFFF"
                 android:src="@drawable/baseline_cancel_24"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/todo" />
 
         </LinearLayout>
 

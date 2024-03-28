@@ -363,10 +363,15 @@ public class MainActivity extends AppCompatActivity {
             TextView id =  parentView.findViewById(R.id.todoId);
             selectedId = id.getText().toString();
             try (DatabaseHelper databaseHelper = new DatabaseHelper(this.context)) {
-                databaseHelper.updateToDoItem(Integer.parseInt(selectedId), true);
+                boolean ret = databaseHelper.updateToDoItem(Integer.parseInt(selectedId), true);
+                if(ret)
+                {
+                    Toast.makeText(context,"Completed Success", Toast.LENGTH_SHORT).show();
+                    refreshPage();
+                    return;
+                }
             }
-            refreshPage();
-            Toast.makeText(context,"Completed Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Completed Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -378,16 +383,20 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public void onClick(View view) {
-            String selectedId="";
             ViewGroup parentView =(ViewGroup) view.getParent().getParent();
             TextView id =  parentView.findViewById(R.id.todoId);
-            selectedId = id.getText().toString();
+            String selectedId = id.getText().toString();
             try (DatabaseHelper databaseHelper = new DatabaseHelper(this.context)) {
-                databaseHelper.updateToDoItem(Integer.parseInt(selectedId), false);
+                boolean ret = databaseHelper.updateToDoItem(Integer.parseInt(selectedId), false);
+                if(ret)
+                {
+                    Toast.makeText(context,"Not Completed Success", Toast.LENGTH_SHORT).show();
+                    refreshPageForCompletedTask();
+                    refreshPage();
+                    return;
+                }
             }
-            refreshPageForCompletedTask();
-            refreshPage();
-            Toast.makeText(context,"Not Completed Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Not Completed Failed", Toast.LENGTH_SHORT).show();
         }
     }
 

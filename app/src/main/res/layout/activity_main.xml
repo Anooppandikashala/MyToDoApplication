@@ -32,6 +32,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/baseline_add_task_24"/>
+        app:srcCompat="@drawable/baseline_add_task_24"
+        android:contentDescription="@string/todo" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

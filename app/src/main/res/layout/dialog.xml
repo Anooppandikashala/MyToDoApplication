@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -35,7 +34,8 @@
                     android:id="@+id/delete"
                     android:background="#00FFFFFF"
                     android:src="@drawable/baseline_cancel_24"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/todo" />
 
             </LinearLayout>
             <LinearLayout
@@ -83,8 +83,6 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -115,8 +113,8 @@
                 android:layout_margin="@dimen/fab_margin"
                 app:tint="@android:color/white"
                 app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_check_24" />
+                app:srcCompat="@drawable/baseline_check_24"
+                android:contentDescription="@string/todo" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
