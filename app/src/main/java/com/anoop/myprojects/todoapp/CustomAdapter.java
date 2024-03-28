@@ -23,6 +23,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         ImageView delete;
         ImageView complete;
         ImageView header;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -76,10 +77,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         System.out.println(dataSet.get(position).getId());
 
         delete.setImageResource(R.drawable.ic_delete_forever_black_24dp);
-        delete.setOnClickListener(MainActivity.deleteOnClickListner);
 
-        complete.setImageResource(R.drawable.baseline_check_circle_outline_24);
-        complete.setOnClickListener(MainActivity.completeOnClickListner);
+        if(dataSet.get(position).getCompleted() == 1)
+        {
+            complete.setImageResource(R.drawable.baseline_check_circle_24);
+            delete.setOnClickListener(MainActivity.deleteOnClickListnerForCompletedTodoList);
+            complete.setOnClickListener(MainActivity.completeOnClickListnerForCompletedTodoList);
+        }
+        else {
+            complete.setImageResource(R.drawable.baseline_check_circle_outline_24);
+            delete.setOnClickListener(MainActivity.deleteOnClickListner);
+            complete.setOnClickListener(MainActivity.completeOnClickListner);
+        }
+
 
         String titleText = dataSet.get(position).getTitle();
         char c = titleText.toLowerCase().charAt(0);

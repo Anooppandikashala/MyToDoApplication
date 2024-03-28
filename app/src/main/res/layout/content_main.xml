@@ -18,5 +18,9 @@
     <TextView
         android:layout_width="match_parent"
         android:text="No tasks found"
+        android:layout_gravity="center"
+        android:id="@+id/error"
+        android:visibility="gone"
+        android:gravity="center"
         android:layout_height="match_parent"/>
 </LinearLayout>

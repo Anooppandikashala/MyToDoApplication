@@ -20,7 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "title TEXT NOT NULL,"+
             "date TEXT NOT NULL,"+
-            "time TEXT NOT NULL);";
+            "time TEXT NOT NULL," +
+            "complete INTEGER NOT NULL);";
 
 
 
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("title",toDoItem.getTitle());
         values.put("time",toDoItem.getTime());
         values.put("date",toDoItem.getDate());
+        values.put("complete",toDoItem.getCompleted());
         long id = db.insertWithOnConflict(TABLE_TODO,null,values,SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
         return id;
@@ -60,14 +62,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean updateToDoItem(int id, boolean isComplete)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("complete",(isComplete ? 1 : 0));
+        long i = db.update(TABLE_TODO,values, " id= ? ",new String[]{String.valueOf(id)});
+        db.close();
+        return i > 0;
+    }
+
     @SuppressLint("Range")
-    public ArrayList<ToDoItem> getAllToDoItems()
+    public ArrayList<ToDoItem> getAllToDoItems(boolean isCompleted)
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM "+ TABLE_TODO + " ORDER BY id DESC";
+        String completed = isCompleted ? " 1 " : " 0 ";
+
+        String selectQuery = "SELECT * FROM "+ TABLE_TODO + " WHERE complete =" + completed +" ORDER BY id DESC" ;
 
         Cursor c = db.rawQuery(selectQuery,null);
         if(c.moveToFirst())
@@ -78,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 toDoItem.setTitle(c.getString(c.getColumnIndex("title")));
                 toDoItem.setTime(c.getString(c.getColumnIndex("time")));
                 toDoItem.setDate(c.getString(c.getColumnIndex("date")));
+                toDoItem.setCompleted(c.getInt(c.getColumnIndex("complete")));
                 toDoItems.add(toDoItem);
 
             }

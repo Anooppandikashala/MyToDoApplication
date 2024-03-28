@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -42,6 +43,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -63,16 +65,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static  View.OnClickListener deleteOnClickListner;
     public static  View.OnClickListener completeOnClickListner;
-    private  static RecyclerView recyclerView;
-    private  static ArrayList<ToDoItem> toDoItems;
-    private static RecyclerView.Adapter adapter;
-    private  RecyclerView.LayoutManager layoutManager;
+
+    public static  View.OnClickListener deleteOnClickListnerForCompletedTodoList;
+    public static  View.OnClickListener completeOnClickListnerForCompletedTodoList;
+    private  static RecyclerView recyclerView, completeRecyclerView;
+    private  static ArrayList<ToDoItem> toDoItems, completeToDoItems;
+    private static RecyclerView.Adapter adapter, completeAdapter;
+    private  RecyclerView.LayoutManager layoutManager, layoutManagerCompleted;
 
     EditText title;
     TextView date,time;
 
-    ImageButton deleteButton;
+    TextView error, errorCompleted;
 
+    ImageButton deleteButton, deleteButtonForCompleted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +97,15 @@ public class MainActivity extends AppCompatActivity {
         deleteOnClickListner = new MainActivity.DeleteOnClickListener(MainActivity.this);
         completeOnClickListner = new MainActivity.CompleteOnClickListener(MainActivity.this);
 
+        deleteOnClickListnerForCompletedTodoList = new MainActivity.DeleteOnClickListenerForComplete(MainActivity.this);
+        completeOnClickListnerForCompletedTodoList = new MainActivity.CompleteOnClickListenerForCompletedToDoList(MainActivity.this);
+
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
+
+        error = findViewById(R.id.error);
+        error.setVisibility(View.VISIBLE);
 
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -147,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                             toDoItem.setDate(dateStr);
                             toDoItem.setTime(timeStr);
                             toDoItem.setTitle(titleStr);
+                            toDoItem.setCompleted(0);
 
                             DatabaseHelper databaseHelper = new DatabaseHelper(view.getContext());
                             long id = databaseHelper.addToDoItem(toDoItem);
@@ -256,6 +270,57 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void showCompletedTask()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.completed, viewGroup, false);
+        builder.setView(dialogView);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = alertDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+
+        completeRecyclerView = dialogView.findViewById(R.id.recycler_view);
+        completeRecyclerView.setHasFixedSize(true);
+
+        errorCompleted = dialogView.findViewById(R.id.error);
+        errorCompleted.setVisibility(View.VISIBLE);
+
+        deleteButtonForCompleted = dialogView.findViewById(R.id.delete);
+        deleteButtonForCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        layoutManagerCompleted = new LinearLayoutManager(getApplicationContext());
+        completeRecyclerView.setLayoutManager(layoutManagerCompleted);
+
+        completeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        completeToDoItems = new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+        completeToDoItems = databaseHelper.getAllToDoItems(true);
+        if(completeToDoItems.isEmpty())
+        {
+            errorCompleted.setVisibility(View.VISIBLE);
+        }
+        else {
+            errorCompleted.setVisibility(View.GONE);
+        }
+        completeAdapter = new CustomAdapter(completeToDoItems);
+        completeRecyclerView.setAdapter(completeAdapter);
+
+        window.setAttributes(wlp);
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -265,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            showCompletedTask();
             return true;
         }
 
@@ -275,10 +341,13 @@ public class MainActivity extends AppCompatActivity {
     {
         toDoItems = new ArrayList<>();
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-        toDoItems = databaseHelper.getAllToDoItems();
+        toDoItems = databaseHelper.getAllToDoItems(false);
         if(toDoItems.isEmpty())
         {
-
+            error.setVisibility(View.VISIBLE);
+        }
+        else {
+            error.setVisibility(View.GONE);
         }
         adapter = new CustomAdapter(toDoItems);
         recyclerView.setAdapter(adapter);
@@ -292,9 +361,10 @@ public class MainActivity extends AppCompatActivity {
         return  super.onSupportNavigateUp();
     }
 
-    private  static class DeleteOnClickListener implements View.OnClickListener
+    private  class DeleteOnClickListener implements View.OnClickListener
     {
         private Context context;
+
         public DeleteOnClickListener(Context context) {
             this.context = context;
         }
@@ -307,15 +377,53 @@ public class MainActivity extends AppCompatActivity {
             selectedId = id.getText().toString();
             DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
-            toDoItems = databaseHelper.getAllToDoItems();
+            toDoItems = databaseHelper.getAllToDoItems(false);
+            if(toDoItems.isEmpty())
+            {
+                MainActivity.this.error.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                MainActivity.this.error.setVisibility(View.GONE);
+            }
             adapter = new CustomAdapter(toDoItems);
-
             recyclerView.setAdapter(adapter);
             Toast.makeText(context,"Deleted Success", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private  static class CompleteOnClickListener implements View.OnClickListener
+    private  class DeleteOnClickListenerForComplete implements View.OnClickListener
+    {
+        private Context context;
+
+        public DeleteOnClickListenerForComplete(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View view) {
+            String selectedId="";
+            ViewGroup parentView =(ViewGroup) view.getParent().getParent();
+            TextView id =  parentView.findViewById(R.id.todoId);
+            selectedId = id.getText().toString();
+            DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
+            databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
+            completeToDoItems = databaseHelper.getAllToDoItems(true);
+            if(completeToDoItems.isEmpty())
+            {
+                MainActivity.this.errorCompleted.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                MainActivity.this.errorCompleted.setVisibility(View.GONE);
+            }
+            completeAdapter = new CustomAdapter(completeToDoItems);
+            completeRecyclerView.setAdapter(completeAdapter);
+            Toast.makeText(context,"Deleted Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class CompleteOnClickListener implements View.OnClickListener
     {
         private Context context;
         public CompleteOnClickListener(Context context) {
@@ -324,17 +432,55 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-//            String selectedId="";
-//            ViewGroup parentView =(ViewGroup) view.getParent();
-//            TextView id = parentView.findViewById(R.id.id);
-//            selectedId = id.getText().toString();
-//            DatabaseHelper databaseHelper = new DatabaseHelper(context);
-//            databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
-//            toDoItems = databaseHelper.getAllToDoItems();
-//            adapter = new CustomAdapter(toDoItems);
-//
-//            recyclerView.setAdapter(adapter);
+            String selectedId="";
+            ViewGroup parentView =(ViewGroup) view.getParent().getParent();
+            TextView id =  parentView.findViewById(R.id.todoId);
+            selectedId = id.getText().toString();
+            DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
+            databaseHelper.updateToDoItem(Integer.parseInt(selectedId),true);
+            toDoItems = databaseHelper.getAllToDoItems(false);
+            if(toDoItems.isEmpty())
+            {
+                MainActivity.this.error.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                MainActivity.this.error.setVisibility(View.GONE);
+            }
+            adapter = new CustomAdapter(toDoItems);
+            recyclerView.setAdapter(adapter);
             Toast.makeText(context,"Completed Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class CompleteOnClickListenerForCompletedToDoList implements View.OnClickListener
+    {
+        private Context context;
+        public CompleteOnClickListenerForCompletedToDoList(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View view) {
+            String selectedId="";
+            ViewGroup parentView =(ViewGroup) view.getParent().getParent();
+            TextView id =  parentView.findViewById(R.id.todoId);
+            selectedId = id.getText().toString();
+            DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
+            databaseHelper.updateToDoItem(Integer.parseInt(selectedId),false);
+            completeToDoItems = databaseHelper.getAllToDoItems(true);
+            if(completeToDoItems.isEmpty())
+            {
+                MainActivity.this.errorCompleted.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                MainActivity.this.errorCompleted.setVisibility(View.GONE);
+            }
+            completeAdapter = new CustomAdapter(completeToDoItems);
+            completeRecyclerView.setAdapter(completeAdapter);
+            refreshPage();
+            Toast.makeText(context,"Not Completed Success", Toast.LENGTH_SHORT).show();
         }
     }
 

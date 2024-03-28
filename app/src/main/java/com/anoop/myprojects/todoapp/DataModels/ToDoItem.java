@@ -3,13 +3,16 @@ package com.anoop.myprojects.todoapp.DataModels;
 public class ToDoItem {
     int id;
     String title,time,date;
+    int completed;
     public ToDoItem() {
+        this.completed = 0;
     }
-    public ToDoItem(int id, String title, String time, String date) {
+    public ToDoItem(int id, String title, String time, String date, int completed) {
         this.id = id;
         this.title = title;
         this.time = time;
         this.date = date;
+        this.completed = completed;
     }
 
     public int getId() {
@@ -42,5 +45,13 @@ public class ToDoItem {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(int completed) {
+        this.completed = completed;
     }
 }
