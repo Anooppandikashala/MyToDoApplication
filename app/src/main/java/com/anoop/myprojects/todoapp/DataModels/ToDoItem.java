@@ -6,9 +6,10 @@ public class ToDoItem {
     int completed;
     public ToDoItem() {
         this.completed = 0;
+        this.id = 0;
     }
-    public ToDoItem(int id, String title, String time, String date, int completed) {
-        this.id = id;
+
+    public ToDoItem(String title, String time, String date, int completed) {
         this.title = title;
         this.time = time;
         this.date = date;

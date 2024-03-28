@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:text="No tasks found"
             android:layout_gravity="center"
-            android:id="@+id/error"
+            android:id="@+id/error_for_complete"
             android:visibility="visible"
             android:gravity="center"
             android:layout_height="match_parent"/>

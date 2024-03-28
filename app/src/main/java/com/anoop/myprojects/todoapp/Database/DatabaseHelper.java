@@ -6,9 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.anoop.myprojects.todoapp.DataModels.ToDoItem;
-
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -22,8 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "date TEXT NOT NULL,"+
             "time TEXT NOT NULL," +
             "complete INTEGER NOT NULL);";
-
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,7 +47,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long id = db.insertWithOnConflict(TABLE_TODO,null,values,SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
         return id;
-
     }
 
     public  void deleteToDoItem(int id)
@@ -59,7 +54,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TODO," id= ? ",new String[]{String.valueOf(id)});
         db.close();
-
     }
 
     public boolean updateToDoItem(int id, boolean isComplete)
@@ -76,13 +70,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<ToDoItem> getAllToDoItems(boolean isCompleted)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-
         String completed = isCompleted ? " 1 " : " 0 ";
-
         String selectQuery = "SELECT * FROM "+ TABLE_TODO + " WHERE complete =" + completed +" ORDER BY id DESC" ;
-
         Cursor c = db.rawQuery(selectQuery,null);
         if(c.moveToFirst())
         {
@@ -98,10 +88,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             while (c.moveToNext());
         }
-
         c.close();
         db.close();
-
         return toDoItems;
     }
 
