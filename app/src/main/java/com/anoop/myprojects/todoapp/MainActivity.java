@@ -353,6 +353,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void refreshPageForCompletedTask()
+    {
+        completeToDoItems = new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+        completeToDoItems = databaseHelper.getAllToDoItems(true);
+        if(completeToDoItems.isEmpty())
+        {
+            errorCompleted.setVisibility(View.VISIBLE);
+        }
+        else {
+            errorCompleted.setVisibility(View.GONE);
+        }
+        completeAdapter = new CustomAdapter(completeToDoItems);
+        completeRecyclerView.setAdapter(completeAdapter);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -377,17 +393,7 @@ public class MainActivity extends AppCompatActivity {
             selectedId = id.getText().toString();
             DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
-            toDoItems = databaseHelper.getAllToDoItems(false);
-            if(toDoItems.isEmpty())
-            {
-                MainActivity.this.error.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                MainActivity.this.error.setVisibility(View.GONE);
-            }
-            adapter = new CustomAdapter(toDoItems);
-            recyclerView.setAdapter(adapter);
+            refreshPage();
             Toast.makeText(context,"Deleted Success", Toast.LENGTH_SHORT).show();
         }
     }
@@ -408,17 +414,7 @@ public class MainActivity extends AppCompatActivity {
             selectedId = id.getText().toString();
             DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.deleteToDoItem(Integer.parseInt(selectedId));
-            completeToDoItems = databaseHelper.getAllToDoItems(true);
-            if(completeToDoItems.isEmpty())
-            {
-                MainActivity.this.errorCompleted.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                MainActivity.this.errorCompleted.setVisibility(View.GONE);
-            }
-            completeAdapter = new CustomAdapter(completeToDoItems);
-            completeRecyclerView.setAdapter(completeAdapter);
+            refreshPageForCompletedTask();
             Toast.makeText(context,"Deleted Success", Toast.LENGTH_SHORT).show();
         }
     }
@@ -438,17 +434,7 @@ public class MainActivity extends AppCompatActivity {
             selectedId = id.getText().toString();
             DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.updateToDoItem(Integer.parseInt(selectedId),true);
-            toDoItems = databaseHelper.getAllToDoItems(false);
-            if(toDoItems.isEmpty())
-            {
-                MainActivity.this.error.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                MainActivity.this.error.setVisibility(View.GONE);
-            }
-            adapter = new CustomAdapter(toDoItems);
-            recyclerView.setAdapter(adapter);
+            refreshPage();
             Toast.makeText(context,"Completed Success", Toast.LENGTH_SHORT).show();
         }
     }
@@ -468,17 +454,7 @@ public class MainActivity extends AppCompatActivity {
             selectedId = id.getText().toString();
             DatabaseHelper databaseHelper = new DatabaseHelper(this.context);
             databaseHelper.updateToDoItem(Integer.parseInt(selectedId),false);
-            completeToDoItems = databaseHelper.getAllToDoItems(true);
-            if(completeToDoItems.isEmpty())
-            {
-                MainActivity.this.errorCompleted.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                MainActivity.this.errorCompleted.setVisibility(View.GONE);
-            }
-            completeAdapter = new CustomAdapter(completeToDoItems);
-            completeRecyclerView.setAdapter(completeAdapter);
+            refreshPageForCompletedTask();
             refreshPage();
             Toast.makeText(context,"Not Completed Success", Toast.LENGTH_SHORT).show();
         }
