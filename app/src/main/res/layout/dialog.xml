@@ -48,15 +48,16 @@
                     android:textStyle="normal"
                     android:text="Title :"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:hint="Task name here"
+                    android:hint="Task name here (max 50 letters)"
                     android:id="@+id/title"
                     android:textColor="#000000"
-                    android:textSize="22sp"
+                    android:maxLength="50"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -72,14 +73,14 @@
                     android:textStyle="normal"
                     android:text="Date :"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/date"
                     android:hint="Add task date"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -94,14 +95,14 @@
                     android:textStyle="normal"
                     android:text="Time :"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/time"
                     android:hint="Add completion time"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 

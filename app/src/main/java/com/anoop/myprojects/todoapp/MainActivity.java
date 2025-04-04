@@ -261,12 +261,51 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_completed_tasks) {
             showCompletedTask();
+            return true;
+        }
+        else if (id == R.id.action_settings) {
+            gotoImportExportPage();
+            return true;
+        }
+        else if (id == R.id.action_about) {
+            gotoAboutPage();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gotoImportExportPage()
+    {
+        Toast.makeText(MainActivity.this,"Coming soon!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void gotoAboutPage()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.about_app, viewGroup, false);
+        builder.setView(dialogView);
+
+        AlertDialog alertDialog = builder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = alertDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+
+        ImageButton deleteButtonForCompleted = dialogView.findViewById(R.id.delete);
+        deleteButtonForCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        window.setAttributes(wlp);
+        alertDialog.setCancelable(true);
+        alertDialog.show();
     }
 
     public void refreshPage()
