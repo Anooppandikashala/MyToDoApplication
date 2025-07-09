@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace = "com.anoop.myprojects.todoapp"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.anoop.myprojects.todoapp"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 4
-        versionName = "4.0"
+        targetSdk = 36
+        versionCode = 5
+        versionName = "5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
