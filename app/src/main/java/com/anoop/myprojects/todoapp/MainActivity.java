@@ -3,6 +3,7 @@ package com.anoop.myprojects.todoapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -279,7 +280,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void gotoImportExportPage()
     {
-        Toast.makeText(MainActivity.this,"Coming soon!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"Coming soon!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, BackupRestoreActivity.class);
+        startActivity(intent);
     }
 
     private void gotoAboutPage()

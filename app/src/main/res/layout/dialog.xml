@@ -54,6 +54,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:hint="Task name here (max 50 letters)"
+                    android:textColorHint="@color/colorAccent"
                     android:id="@+id/title"
                     android:textColor="#000000"
                     android:maxLength="50"
@@ -79,7 +80,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/date"
-                    android:hint="Add task date"
+                    android:hint="Add due date"
+                    android:textColorHint="@color/colorAccent"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:layout_height="wrap_content"/>
 
@@ -102,6 +105,8 @@
                     android:layout_width="match_parent"
                     android:id="@+id/time"
                     android:hint="Add completion time"
+                    android:textColorHint="@color/colorAccent"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

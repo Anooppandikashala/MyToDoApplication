@@ -59,7 +59,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         id.setText(String.valueOf(dataSet.get(position).getId()));
 
         System.out.println(dataSet.get(position).getId());
-        delete.setImageResource(R.drawable.ic_delete_forever_black_24dp);
+        delete.setImageResource(R.drawable.ic_delete_forever_red_24dp);
 
         if(dataSet.get(position).getCompleted() == 1)
         {

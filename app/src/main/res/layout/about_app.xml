@@ -29,6 +29,7 @@
         android:text="About TODO App"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_height="wrap_content"/>
@@ -56,6 +57,7 @@
         android:text="@string/about_app"
         android:textStyle="italic"
         android:gravity="center"
+        android:textColor="#1E1D1D"
         android:padding="25dp"
         android:layout_gravity="center"
         android:textSize="16sp"
