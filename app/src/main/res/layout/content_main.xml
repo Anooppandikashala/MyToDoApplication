@@ -9,6 +9,14 @@
     android:background="#ffffff"
     android:orientation="vertical"
     tools:showIn="@layout/activity_main">
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id_1"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recycler_view"

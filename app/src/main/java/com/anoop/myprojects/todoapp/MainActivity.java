@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,6 +36,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anoop.myprojects.todoapp.DataModels.ToDoItem;
 import com.anoop.myprojects.todoapp.Database.DatabaseHelper;
 import com.anoop.myprojects.todoapp.databinding.ActivityMainBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private  static RecyclerView recyclerView, completeRecyclerView;
     private TextView errorCompleted;
 
+    AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
         binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         changeActionBarIconColor(android.R.color.white);
 
+        new Thread(
+        () -> {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(this, initializationStatus -> {});
+        })
+        .start();
+
         deleteOnClickListner = new MainActivity.DeleteOnClickListener(MainActivity.this);
         completeOnClickListner = new MainActivity.CompleteOnClickListener(MainActivity.this);
 
@@ -68,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         completeOnClickListnerForCompletedTodoList = new MainActivity.CompleteOnClickListenerForCompletedToDoList(MainActivity.this);
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
 
         TextView error = findViewById(R.id.error);
         error.setVisibility(View.VISIBLE);
@@ -84,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 showAddToDoDialog();
             }
         });
+
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     private void showAddToDoDialog()
@@ -232,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 
         completeRecyclerView = dialogView.findViewById(R.id.recycler_view);
-        completeRecyclerView.setHasFixedSize(true);
+//        completeRecyclerView.setHasFixedSize(true);
 
         errorCompleted = dialogView.findViewById(R.id.error_for_complete);
         errorCompleted.setVisibility(View.VISIBLE);
@@ -306,6 +323,20 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+        ImageView btnShare = dialogView.findViewById(R.id.btnShare);
+
+        btnShare.setOnClickListener(v -> {
+            String appPackageName = getPackageName();
+            String shareMessage = "Check out this TODO App!\n\n"
+                    + "https://play.google.com/store/apps/details?id=" + appPackageName;
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(intent, "Share via"));
+        });
+
         window.setAttributes(wlp);
         alertDialog.setCancelable(true);
         alertDialog.show();
@@ -446,5 +477,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshPage();
+        if (adView != null) adView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        if (adView != null) adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (adView != null) adView.destroy();
+        super.onDestroy();
     }
 }

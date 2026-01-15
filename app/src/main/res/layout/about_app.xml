@@ -71,6 +71,15 @@
         android:layout_marginEnd="50dp"
         android:layout_height="2dp"/>
 
+    <ImageView
+        android:id="@+id/btnShare"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:src="@drawable/google_play_svgrepo_com"
+        android:contentDescription="Share App" />
+
     <TextView
         android:layout_width="match_parent"
         android:text="@string/author"
@@ -81,6 +90,7 @@
         android:layout_gravity="center"
         android:textSize="12sp"
         android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>

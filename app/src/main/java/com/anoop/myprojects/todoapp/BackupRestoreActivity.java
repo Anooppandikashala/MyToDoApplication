@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.anoop.myprojects.todoapp.adapters.BackupAdapter;
 import com.anoop.myprojects.todoapp.utils.BackupRestoreUtils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.io.File;
 import java.util.List;
@@ -20,6 +22,9 @@ public class BackupRestoreActivity extends AppCompatActivity {
     private ListView listView;
     private Button backupBtn;
     private List<File> backupFiles;
+
+    AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,9 @@ public class BackupRestoreActivity extends AppCompatActivity {
             loadBackups();
         });
         loadBackups();
+        adView = findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     private void loadBackups() {
