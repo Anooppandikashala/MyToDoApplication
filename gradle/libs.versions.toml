@@ -11,6 +11,8 @@ navigationUi = "2.9.6"
 activity = "1.12.2"
 gson = "2.13.2"
 playServicesAds = "24.9.0"
+playStoreUpdate = "2.1.0"
+splashscreen = "1.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -25,6 +27,8 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 #'com.google.code.gson:gson:2.10.1'
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+play-store-update = { group = "com.google.android.play", name = "app-update", version.ref = "playStoreUpdate" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

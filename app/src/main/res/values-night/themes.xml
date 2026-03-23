@@ -1,7 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode colors will be defined here when feature 2.4 (Dark Mode Toggle) is implemented. -->
+    <!-- Until then, the app uses values/themes.xml in all modes. -->
 </resources>

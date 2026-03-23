@@ -1,21 +1,24 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Keep line numbers for crash reporting
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep data models used by SQLite cursor mapping
+-keep class com.anoop.myprojects.todoapp.DataModels.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep database helper (accessed via try-with-resources / SQLiteOpenHelper)
+-keep class com.anoop.myprojects.todoapp.Database.** { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# AdMob / GMS Ads (consumer rules are included in the AAR, these are extra guards)
+-keep class com.google.android.gms.ads.** { *; }
+-dontwarn com.google.android.gms.ads.**
+
+# Play Core in-app updates
+-keep class com.google.android.play.core.** { *; }
+-dontwarn com.google.android.play.core.**
+
+# ViewBinding classes generated at compile time
+-keep class com.anoop.myprojects.todoapp.databinding.** { *; }
+
+# Suppress warnings for optional annotations used by the AndroidX libraries
+-dontwarn org.checkerframework.**
+-dontwarn com.google.errorprone.**

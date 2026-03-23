@@ -1,126 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="bottom">
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="24dp">
 
+        <!-- Drag handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/chip_bg" />
+
+        <!-- Header row -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:padding="15dp"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/dialogTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Add New Task"
+                android:textColor="@color/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/baseline_cancel_24"
+                app:tint="@color/colorOnSurfaceVariant" />
+
+        </LinearLayout>
+
+        <!-- Title input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Task title"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:gravity="end"
-                android:layout_height="wrap_content">
+                android:textColor="@color/colorOnSurface"
+                android:layout_height="wrap_content"
+                android:inputType="text|textCapSentences"
+                android:maxLength="50"
+                android:maxLines="2" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:id="@+id/delete"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/baseline_cancel_24"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
-            <LinearLayout
+        <!-- Date picker row -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Due date"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_date_range_black_24dp"
+            app:startIconTint="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textStyle="normal"
-                    android:text="Title :"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textColor="@color/colorOnSurface"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:hint="Task name here (max 50 letters)"
-                    android:textColorHint="@color/colorAccent"
-                    android:id="@+id/title"
-                    android:textColor="#000000"
-                    android:maxLength="50"
-                    android:textSize="18sp"
-                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+        <!-- Time picker row -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="Due time"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_timer_black_24dp"
+            app:startIconTint="@color/colorPrimary">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/time"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textColor="@color/colorOnSurface"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textStyle="normal"
-                    android:text="Date :"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/date"
-                    android:hint="Add due date"
-                    android:textColorHint="@color/colorAccent"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_height="wrap_content"/>
+        <!-- Notes input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Notes (optional)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-            </LinearLayout>
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notes"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:textColor="@color/colorOnSurface"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="3"
+                android:minLines="2" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textStyle="normal"
-                    android:text="Time :"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/time"
-                    android:hint="Add completion time"
-                    android:textColorHint="@color/colorAccent"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+        <!-- Priority selector -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Priority"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_todo"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/dialogPriorityChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true" />
+
+        <!-- Category selector -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Category"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/dialogCategoryChipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                app:tint="@android:color/white"
-                app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_check_24"
-                android:contentDescription="@string/todo" />
-        </LinearLayout>
+                app:singleLine="true"
+                app:singleSelection="true" />
+
+        </HorizontalScrollView>
+
+        <!-- Submit button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fab_add_todo"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Add Task"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/colorPrimary"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/baseline_check_24"
+            app:iconGravity="textStart"
+            app:iconTint="@color/white"
+            style="@style/Widget.Material3.Button" />
+
     </LinearLayout>
+
 </LinearLayout>

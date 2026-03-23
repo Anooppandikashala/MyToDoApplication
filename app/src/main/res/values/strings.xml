@@ -8,5 +8,7 @@
         Whether you\'re managing your daily tasks, planning a big project, or keeping track of important deadlines,
         ToDo App makes task management simple, efficient, and stress-free.</string>
     <string name="author">anooppkrishnan96@gmail.com</string>
-    <string name="version_string">( version 8.0 )</string>
+    <string name="version_string">( version 12.0.0 )</string>
+    <string name="no_tasks_yet">No tasks yet</string>
+    <string name="tap_to_add_your_first_task">Tap + to add your first task</string>
 </resources>

@@ -10,8 +10,8 @@ android {
         applicationId = "com.anoop.myprojects.todoapp"
         minSdk = 24
         targetSdk = 36
-        versionCode = 8
-        versionName = "8.0"
+        versionCode = 12
+        versionName = "12.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,7 +30,8 @@ android {
             )
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -62,11 +63,13 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.core.splashscreen)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.activity)
     implementation(libs.gson)
     implementation(libs.play.services.ads)
+    implementation(libs.play.store.update)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

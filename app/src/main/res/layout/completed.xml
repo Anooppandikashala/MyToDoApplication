@@ -1,61 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:background="@drawable/bg_complete"
-    android:minHeight="400dp"
-    android:layout_height="wrap_content">
+    android:minHeight="420dp"
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:gravity="end"
-            android:layout_height="wrap_content">
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/chip_bg" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:id="@+id/delete"
-                android:background="#00FFFFFF"
-                android:src="@drawable/baseline_cancel_24"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/todo" />
-
-        </LinearLayout>
+    <!-- Header row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="12dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:text="Completed Task"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Completed Tasks"
+            android:textColor="@color/colorOnSurface"
             android:textSize="20sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
-        <View
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:layout_height="2dp"/>
+        <ImageButton
+            android:id="@+id/delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/baseline_cancel_24" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:text="No tasks found"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center"
-            android:id="@+id/error_for_complete"
-            android:visibility="visible"
-            android:gravity="center"
-            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/recycler_view"
-            android:visibility="visible"
-            android:scrollbars="vertical"
-            android:layout_height="wrap_content" />
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorOutlineVariant" />
+
+    <!-- Empty state -->
+    <TextView
+        android:id="@+id/error_for_complete"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No completed tasks yet"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <!-- Completed list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="none" />
+
 </LinearLayout>

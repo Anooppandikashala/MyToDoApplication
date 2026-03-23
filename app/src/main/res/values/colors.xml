@@ -2,7 +2,39 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Brand: Indigo-Blue -->
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#673AB7</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#5C6BC0</color>
+
+    <!-- Surface system -->
+    <color name="colorBackground">#F0F1FA</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#1A1A2C</color>
+    <color name="colorSurfaceVariant">#E4E5F5</color>
+    <color name="colorOnSurfaceVariant">#44455E</color>
+    <color name="colorOutline">#C5C6DC</color>
+    <color name="colorOutlineVariant">#DDDDF0</color>
+
+    <!-- Primary container (light tint for avatar circles) -->
+    <color name="colorPrimaryContainer">#C5CAE9</color>
+    <color name="colorOnPrimaryContainer">#1A237E</color>
+
+    <!-- Status colors -->
+    <color name="colorError">#C62828</color>
+    <color name="colorComplete">#2E7D32</color>
+    <color name="colorDeleteRed">#C62828</color>
+
+    <!-- Chip (date / time badges on cards) -->
+    <color name="chipBackground">#ECEEFF</color>
+    <color name="chipText">#303F9F</color>
+
+    <!-- Priority levels -->
+    <color name="priorityHigh">#F44336</color>
+    <color name="priorityMedium">#FF9800</color>
+    <color name="priorityLow">#26A69A</color>
+
+    <!-- Scrim for bottom sheets -->
+    <color name="scrimColor">#66000000</color>
 </resources>
